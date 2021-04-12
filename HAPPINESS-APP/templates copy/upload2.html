@@ -1,0 +1,31 @@
+<html>  
+<head>  
+    <title>upload</title>  
+</head>  
+<body>  
+    <form action = "/success" method = "post" enctype="multipart/form-data">  
+        <label for="files">Select files:</label>
+        <input type="file" id="files" name="files" multiple><br><br>
+        <input type="submit"> 
+    </form>  
+</body>  
+</html> 
+
+<html>  
+<head>  
+<title>success</title>  
+</head>  
+<body>  
+{% for name in fnamelist %}
+<p>File uploaded successfully</p>  
+<p>File Name: {{name}}</p>  
+<form action=''  method = "post">
+    <a href='/display/{{name}}'>Display Data {{name}}</a>
+</form>
+{% endfor %}
+</body>  
+</html>  
+
+<form action=''  method = "post">
+    <a href='/display/{{name}}'>Display Data {{name}}</a>
+ </form>
