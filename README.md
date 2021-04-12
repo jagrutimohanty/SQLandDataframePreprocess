@@ -10,7 +10,7 @@ Flask application created to perform the following operations :
 6) Based on user input calculating and printing the Nth Percentile 
 
 
-Dependencies and installations 
+Dependencies and installations and steps to be followed 
 
 1. Installed conda and launched vscode studio
 3. Created virtual environment with the step - conda create --name myenv
@@ -18,3 +18,7 @@ Dependencies and installations
 5. conda install flask
 6. pip install flask-sqlalchemy
 7. pip install pandas
+8. export FLASK_APP=app.py
+9. flask run
+
+
