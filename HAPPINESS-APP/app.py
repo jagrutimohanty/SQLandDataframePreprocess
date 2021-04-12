@@ -29,7 +29,7 @@ connection = sql_engine.raw_connection()
 
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/Users/jagrutimohanty/HAPPINESS-APP/FILE-UPLOAD' 
+UPLOAD_FOLDER = '/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/FILE-UPLOAD' 
 app.secret_key = "jmjm"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.run(host='localhost', port=5000)
@@ -86,11 +86,10 @@ def success():
 
 @app.route('/display/<string:fname>' , methods = ['GET','POST'])
 def display(fname):
-    
         df3= pd.read_csv(UPLOAD_FOLDER+"/"+fname) 
         html = df3.head(2).to_html(header="true", table_id="table")
         shape = df3.shape
-        with open('/Users/jagrutimohanty/HAPPINESS-APP/templates/backbutton.html','r') as firstfile, open('/Users/jagrutimohanty/HAPPINESS-APP/templates/displaydf.html','w') as secondfile:
+        with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/backbutton.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydf.html','w') as secondfile:
                 secondfile.truncate()
                 secondfile.write(html)
              # read content from first file
@@ -105,7 +104,7 @@ def display(fname):
 
 @app.route('/displayall' , methods = ['GET','POST'])
 def displayall():
-        name = os.listdir('/Users/jagrutimohanty/HAPPINESS-APP/FILE-UPLOAD/')
+        name = os.listdir('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/FILE-UPLOAD/')
         return render_template("displaydflinks.html" ,name=name)  
   
 
@@ -137,14 +136,14 @@ def common_columns(df1,df2):
 
 @app.route('/createtablefromdf/')
 def createtablefromdf():
-    report21_df = pd.read_csv("/Users/jagrutimohanty/HAPPINESS-APP/FILE-UPLOAD"+"/"+"world-happiness-report-2021.csv")
+    report21_df = pd.read_csv("/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/FILE-UPLOAD"+"/"+"world-happiness-report-2021.csv")
     arr = list(report21_df.columns)
     sql_report_df = report21_df[arr[0:5]]
     sqlite_table = "report21dftosql"
     sql_report_df.to_sql(sqlite_table, sql_engine.raw_connection(), if_exists='replace')
     html = sql_report_df.head(2).to_html(header="true", table_id="table")
     shape = sql_report_df.shape
-    with open('/Users/jagrutimohanty/HAPPINESS-APP/templates/shape.html','r') as firstfile, open('/Users/jagrutimohanty/HAPPINESS-APP/templates/displaydf.html','w') as secondfile:
+    with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/shape.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydata.html','w') as secondfile:
                 secondfile.truncate()
                 secondfile.write(html)
              # read content from first file
@@ -158,13 +157,13 @@ def createtablefromdf():
    # return render_template("displaydf.html")
     if(not sql_report_df.empty):
         operation = "Creation of Table from Dataframe is" 
-        return render_template("displaydf.html" , shape=shape ,operation = operation)
+        return render_template("displaydata.html" , shape=shape ,operation=operation)
     abort(404)
          
 
 @app.route('/createdffromsql/')
 def createdffromsql():
-    report21_df = pd.read_csv("/Users/jagrutimohanty/HAPPINESS-APP/FILE-UPLOAD"+"/"+"world-happiness-report-2021.csv")
+    report21_df = pd.read_csv("/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/FILE-UPLOAD"+"/"+"world-happiness-report-2021.csv")
     arr = list(report21_df.columns)
     sql_report_df = report21_df[arr[0:5]]
     sql_torepor21_df = pd.read_sql_query("SELECT * from report21dftosql",sql_engine.raw_connection())
@@ -172,7 +171,7 @@ def createdffromsql():
     html = sql_torepor21_df.head(2).to_html(header="true", table_id="table")
     shape = sql_torepor21_df.shape
     operation = "Creation of  Dataframe from SQL Table is"
-    with open('/Users/jagrutimohanty/HAPPINESS-APP/templates/shape.html','r') as firstfile, open('/Users/jagrutimohanty/HAPPINESS-APP/templates/displaydf.html','w') as secondfile:
+    with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/shape.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydata.html','w') as secondfile:
                 secondfile.truncate()
                 secondfile.write(html)
              # read content from first file
@@ -186,7 +185,7 @@ def createdffromsql():
    # return render_template("displaydf.html")
     if(not sql_report_df.empty):
         operation = "Creation of  Dataframe from SQL Table is"
-        return render_template("displaydf.html" , shape=shape ,operation =  operation)
+        return render_template("displaydata.html" , shape=shape ,operation=operation)
     abort(404)
 
 
@@ -205,7 +204,7 @@ def quantile_disp(df,n :int):
 @app.route('/quantilepercentile' , methods = ['GET','POST'])
 def quantilepercentile():
     
-    report21_df = pd.read_csv("/Users/jagrutimohanty/HAPPINESS-APP/FILE-UPLOAD"+"/"+"world-happiness-report-2021.csv")
+    report21_df = pd.read_csv("/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/FILE-UPLOAD"+"/"+"world-happiness-report-2021.csv")
     if request.method == 'POST':
        inp = request.form['inputnum']
        res_df = quantile_disp(report21_df,int(inp))
