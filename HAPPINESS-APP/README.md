@@ -7,6 +7,5 @@ The application is designed for data preprocessing and manipulation using SQL an
 6. Coverting from dataframe to sqlite table
 7. Coverting from sqlite table to dataframe
 8. Finding the intersection or common columns for two dataframes
-9. Finding the nth percentile of the numerical columns
-10. Next page is displays percentiles
+9. Finding the nth percentile of the numerical columns and next page is displays percentiles
 
