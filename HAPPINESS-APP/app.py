@@ -86,19 +86,24 @@ def success():
 
 @app.route('/display/<string:fname>' , methods = ['GET','POST'])
 def display(fname):
-        df3= pd.read_csv(UPLOAD_FOLDER+"/"+fname) 
-        html = df3.head(2).to_html(header="true", table_id="table")
-        shape = df3.shape
-        with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/backbutton.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydf.html','w') as secondfile:
-                secondfile.truncate()
-                secondfile.write(html)
+        
+        fname= pd.read_csv(UPLOAD_FOLDER+"/"+fname) 
+        html = fname.head(2).to_html(header="true", table_id="table")
+        shape = fname.shape
+        if (request.method == "GET"):
+            html = fname.head(2).to_html(header="true", table_id="table")
+            with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/backbutton.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydf.html','w+') as secondfile:
+                    secondfile.truncate()
+                    secondfile.write(html)
              # read content from first file
-                for line in firstfile:     
+                    for line in firstfile:     
              # write content to second file
                            secondfile.write(line)                
-                firstfile.close()
-                secondfile.close()
+                    firstfile.close()
+                    secondfile.close()
+            return render_template("displaydf.html" , shape=shape)
         return render_template("displaydf.html" , shape=shape)
+#######
 
 
 
@@ -126,7 +131,7 @@ def common_cols():
     return f"Common Columns Does not exist"
 
 def common_columns(df1,df2):
-    common_columns = list(set(list(df1.columns) + list(df2.columns)))
+    common_columns = list(set(df1.columns) & set(df2.columns))
     if common_columns:
         return common_columns
     return False
@@ -143,7 +148,7 @@ def createtablefromdf():
     sql_report_df.to_sql(sqlite_table, sql_engine.raw_connection(), if_exists='replace')
     html = sql_report_df.head(2).to_html(header="true", table_id="table")
     shape = sql_report_df.shape
-    with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/shape.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydata.html','w') as secondfile:
+    with open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/shape.html','r') as firstfile, open('/Users/jagrutimohanty/SQLandDataframePreprocess/HAPPINESS-APP/templates/displaydata1.html','w') as secondfile:
                 secondfile.truncate()
                 secondfile.write(html)
              # read content from first file
@@ -157,7 +162,7 @@ def createtablefromdf():
    # return render_template("displaydf.html")
     if(not sql_report_df.empty):
         operation = "Creation of Table from Dataframe is" 
-        return render_template("displaydata.html" , shape=shape ,operation=operation)
+        return render_template("displaydata1.html" , shape=shape ,operation=operation)
     abort(404)
          
 
