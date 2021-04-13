@@ -1,8 +1,6 @@
 
 The application is designed for data preprocessing and manipulation using SQL and Dataframes in flask application.
-app.py is the main application file that could be imported as the package to access the various functions. In the application each api is designed for their respective function.
-Templates folder contains the UI files which are integrated with the backend api call using routing.
-
+app.py is the main application file that could be imported as the package to access the various functions. In the application each api is designed for their respective function.Templates folder contains the UI files which are integrated with the backend api call using routing.
 The application is designed to perform the following tasks:
 1. Home page which is integrated with other pages as it is easier to navigate
 2. Upload page - Multiple file upload facility is enabled in the flask application
