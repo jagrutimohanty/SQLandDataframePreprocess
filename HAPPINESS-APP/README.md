@@ -9,6 +9,6 @@ The application is designed to perform the following tasks:
 4. Main page of the link of uploaded for display and subsequent page for displaying initial 2 rows and shape of the data files uploaded into the system.
 6. Coverting from dataframe to sqlite table and Coverting from sqlite table to dataframe
 7. Finding the intersection or common columns for two dataframes
-8.Finding the nth percentile of the numerical columns and next page is displays percentiles
-9. .
+8. Finding the nth percentile of the numerical columns and next page is displays percentiles
+9.
 10. 
